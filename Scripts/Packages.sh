@@ -41,9 +41,9 @@ UPDATE_PACKAGE_2() {
 #UPDATE_PACKAGE_2 "https://github.com/xxx/yyy" "" "package/luci-xxx" "applications/xxx"
 #UPDATE_PACKAGE_2 "https://github.com/xxx/yyy"
 if [[ $WRT_URL == *"immortalwrt"* && $WRT_TARGET == "Mediatek" ]]; then
-	#mv -f ./Patches/mediatek/*.dts ./wrt/target/linux/mediatek/dts/
-
-	#UPDATE_PACKAGE_2 "https://github.com/immortalwrt/packages" "openwrt-23.05" "./feeds/packages/lang" "lang/ruby"
+	#替换成ruby3.2.4
+        rm -rf ../feeds/packages/lang/ruby
+	UPDATE_PACKAGE_2 "https://github.com/immortalwrt/packages" "openwrt-23.05" "../feeds/packages/lang" "lang/ruby"
         ls
 	echo "$WRT_TARGET 已替换更新ruby3.2.4!"
 fi
