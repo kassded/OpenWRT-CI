@@ -44,5 +44,6 @@ if [[ $WRT_URL == *"lede"* ]]; then
 else
 	echo "CONFIG_PACKAGE_luci=y" >> ./.config
 	echo "CONFIG_LUCI_LANG_zh_Hans=y" >> ./.config
+        echo "CONFIG_PACKAGE_luci-app-openclash=y" >> ./.config
 	echo "CONFIG_PACKAGE_luci-app-homeproxy=y" >> ./.config
 fi
