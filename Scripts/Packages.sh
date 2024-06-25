@@ -1,5 +1,53 @@
 #!/bin/bash
 
+##git仓库  "$4"可拉仓库子目录
+CURRENT_PATH=$(pwd)
+UPDATE_PACKAGE_2() {
+  # 参数检查
+  if [ "$#" -lt 2 ]; then
+    echo "Usage: UPDATE_PACKAGE_2 <git_url> <branch> [target_directory] [subdirectory]"
+    return 1
+  fi
+  local git_url="$1"
+  local branch="$2"
+  local source_target_directory="$3"
+  local target_directory="$3"
+  local subdirectory="$4"
+  #检测是否 git子目录
+  if [ -n "$subdirectory" ]; then
+    target_directory=$CURRENT_PATH/repos/$(echo "$git_url" | awk -F'/' '{print $(NF-1)"-"$NF}')
+  fi
+  # 检查目标目录是否存在
+  if [ -d "$target_directory" ]; then
+    pushd "$target_directory" || return 1
+    git pull
+    popd
+  else
+    if [ -n "$branch" ]; then
+      git clone --depth=1 -b $branch $git_url $target_directory
+    else
+      git clone --depth=1 $git_url $target_directory
+    fi
+  fi
+  
+  if [ -n "$subdirectory" ]; then
+    cp -a $target_directory/$subdirectory ./$source_target_directory
+    rm -rf $target_directory
+  fi
+}
+# 用法举例
+#UPDATE_PACKAGE_2 "https://github.com/xxx/yyy" "分支名" "目标目录" "git 子目录"
+#UPDATE_PACKAGE_2 "https://github.com/xxx/yyy" "master" "package/luci-xxx"  "applications/xxx"
+#UPDATE_PACKAGE_2 "https://github.com/xxx/yyy" "" "package/luci-xxx" "applications/xxx"
+#UPDATE_PACKAGE_2 "https://github.com/xxx/yyy"
+if [[ $WRT_URL == *"immortalwrt"* && $WRT_TARGET == "Mediatek" ]]; then
+	#mv -f ./Patches/mediatek/*.dts ./wrt/target/linux/mediatek/dts/
+
+	#UPDATE_PACKAGE_2 "https://github.com/immortalwrt/packages" "openwrt-23.05" "./feeds/packages/lang" "lang/ruby"
+        ls
+	echo "$WRT_TARGET 已替换更新ruby3.2.4!"
+fi
+
 #安装和更新软件包
 UPDATE_PACKAGE() {
 	local PKG_NAME=$1
