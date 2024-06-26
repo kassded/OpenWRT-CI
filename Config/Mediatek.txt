@@ -1,7 +1,9 @@
 #ABT BANANAPI CETRON CMCC GLINET H3C IMOU JCG JDCLOUD NETCORE NOKIA QIHOO RUIJIE MI-ROUTER REDMI-ROUTER
 CONFIG_TARGET_mediatek=y
 CONFIG_TARGET_mediatek_filogic=y
-CONFIG_TARGET_mediatek_filogic_DEVICE_cmcc_rax3000m-emmc-ubootmod=y
+#CONFIG_TARGET_mediatek_filogic_DEVICE_cmcc_rax3000m-emmc-ubootmod=y
+CONFIG_TARGET_DEVICE_mediatek_filogic_DEVICE_cmcc_rax3000m-emmc-ubootmod=y
+CONFIG_TARGET_DEVICE_mediatek_filogic_DEVICE_cmcc_rax3000m-emmc=y
 CONFIG_PACKAGE_cfdisk=y
 CONFIG_PACKAGE_f2fs-tools=y
 CONFIG_PACKAGE_htop=y
