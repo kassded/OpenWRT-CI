@@ -21,7 +21,9 @@ if [[ $WRT_URL == *"lede"* ]]; then
 	#修改默认WIFI名
 	sed -i "s/ssid=.*/ssid=$WRT_WIFI/g" ./package/kernel/mac80211/files/lib/wifi/mac80211.sh
 else
-	#修改默认WIFI名
+	#修改默认WIFI国家CN
+        sed -i "/set \${s}\.type='mac80211'/a set \${s}\.country='CN'" $(find ./package/network/config/wifi-scripts/files/lib/wifi/ -type f -name "mac80211.*")
+        #修改默认WIFI名
 	sed -i "s/ssid=.*/ssid='$WRT_WIFI'/g" $(find ./package/network/config/wifi-scripts/files/lib/wifi/ -type f -name "mac80211.*")
 	#修改immortalwrt.lan关联IP
 	sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
